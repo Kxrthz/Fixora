@@ -1,0 +1,15 @@
+spring:
+  application: { name: fixora-api }
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:fixora}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USER:fixora}
+    password: ${MYSQL_PASSWORD:fixora}
+  jpa:
+    hibernate: { ddl-auto: validate }
+    open-in-view: false
+  flyway: { enabled: true, locations: classpath:db/migration }
+server: { port: ${PORT:8080} }
+fixora:
+  jwt-secret: ${JWT_SECRET:development-secret-change-this-to-at-least-32-bytes}
+  cors-origins: ${CORS_ORIGINS:http://localhost:5173}
+
