@@ -3,9 +3,8 @@ spring:
     name: fixora-api
 
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:fixora}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-    username: ${MYSQL_USER:fixora}
-    password: ${MYSQL_PASSWORD:fixora}
+    url: ${DATABASE_URL}
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
