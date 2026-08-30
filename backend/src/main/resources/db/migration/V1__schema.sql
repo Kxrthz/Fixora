@@ -17,7 +17,7 @@ CREATE TABLE bookings (
   address VARCHAR(300) NOT NULL, notes VARCHAR(1200), scheduled_at TIMESTAMP NOT NULL, status VARCHAR(20) NOT NULL, total DECIMAL(10,2) NOT NULL,
   created_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   CONSTRAINT fk_booking_customer FOREIGN KEY(customer_id) REFERENCES users(id), CONSTRAINT fk_booking_provider FOREIGN KEY(provider_id) REFERENCES users(id), CONSTRAINT fk_booking_service FOREIGN KEY(service_id) REFERENCES services(id),
-  INDEX idx_bookings_customer(customer_id, scheduled_at), INDEX idx_bookings_provider(provider_id, scheduled_at)
+ INDEX idx_bookings_provider(provider_id, scheduled_at)
 );
 CREATE TABLE chat_rooms (id BIGINT PRIMARY KEY , booking_id BIGINT NOT NULL UNIQUE, created_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), CONSTRAINT fk_room_booking FOREIGN KEY(booking_id) REFERENCES bookings(id) ON DELETE CASCADE);
 CREATE TABLE messages (id BIGINT PRIMARY KEY , room_id BIGINT NOT NULL, sender_id BIGINT NOT NULL, body VARCHAR(2000) NOT NULL, created_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), CONSTRAINT fk_message_room FOREIGN KEY(room_id) REFERENCES chat_rooms(id) ON DELETE CASCADE, CONSTRAINT fk_message_sender FOREIGN KEY(sender_id) REFERENCES users(id), INDEX idx_messages_room(room_id, created_at));

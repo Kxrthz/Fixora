@@ -9,5 +9,5 @@ CREATE TABLE addresses (
   landmark VARCHAR(120),
   default_address BOOLEAN NOT NULL DEFAULT FALSE,
   CONSTRAINT fk_address_user FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
-  INDEX idx_addresses_user(user_id, default_address)
+
 );
