@@ -21,3 +21,7 @@ server:
 fixora:
   jwt-secret: ${JWT_SECRET:development-secret-change-this-to-at-least-32-bytes}
   cors-origins: ${CORS_ORIGINS:http://localhost:5173}
+spring:
+  flyway:
+    repair-on-migrate: true
+    baseline-on-migrate: true
