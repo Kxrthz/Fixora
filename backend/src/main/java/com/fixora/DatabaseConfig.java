@@ -1,4 +1,4 @@
-﻿package com.fixora;
+package com.fixora;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
