@@ -6,3 +6,6 @@ backend/target/
 .idea/
 .vscode/
 
+
+target/
+.mvn/wrapper/maven-wrapper.jar
