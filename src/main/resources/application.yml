@@ -3,7 +3,7 @@
     name: fixora-api
 
   datasource:
-    url: jdbc:${DATABASE_URL}
+    url: ${SPRING_DATASOURCE_URL:jdbc:${DATABASE_URL}}
     driver-class-name: org.postgresql.Driver
 
   jpa:
