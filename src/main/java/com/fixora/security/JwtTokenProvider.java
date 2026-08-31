@@ -18,10 +18,10 @@ public class JwtTokenProvider {
 
     private static final Logger log = LoggerFactory.getLogger(JwtTokenProvider.class);
 
-    @Value("${app.jwt.secret}")
+    @Value("${fixora.jwt-secret:development-secret-change-this-to-at-least-32-bytes}")
     private String jwtSecret;
 
-    @Value("${app.jwt.expiration-ms}")
+    @Value("${fixora.jwt-expiration-ms:86400000}")
     private long jwtExpirationInMs;
 
     private SecretKey key;
