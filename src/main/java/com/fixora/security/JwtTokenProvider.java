@@ -1,4 +1,4 @@
-package com.fixora.security;
+﻿package com.fixora.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -68,3 +68,4 @@ public class JwtTokenProvider {
         return false;
     }
 }
+
