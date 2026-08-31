@@ -1,4 +1,4 @@
-package com.fixora.config;
+﻿package com.fixora.config;
 
 import com.fixora.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +27,7 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Value("${app.cors.allowed-origins}")
+    @Value("${fixora.cors-origins:http://localhost:5173}")
     private String allowedOrigins;
 
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
