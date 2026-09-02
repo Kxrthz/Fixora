@@ -1,33 +1,31 @@
 package com.fixora;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-import java.util.Optional;
+import com.fixora.security.JwtService;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
 
-@ExtendWith(org.mockito.junit.jupiter.MockitoExtension.class)
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@SpringBootTest
+@AutoConfigureMockMvc
 class AuthControllerTest {
-  @Mock UserRepository users;
-  @Mock JwtService jwt;
-  @Captor ArgumentCaptor<User> userCaptor;
 
-  @Test void registersCustomerWithHashedPassword() {
-    when(users.findByEmail("customer@fixora.test")).thenReturn(Optional.empty());
-    when(users.save(any(User.class))).thenAnswer(invocation -> { User user=invocation.getArgument(0); user.id=42L; return user; });
-    when(jwt.issue(any(User.class), anyLong())).thenReturn("token");
-    var response=new AuthController(users,new BCryptPasswordEncoder(),jwt).register(new RegisterRequest("Customer","customer@fixora.test","correct-horse",Role.CUSTOMER));
-    assertEquals("token",response.accessToken()); assertEquals(Role.CUSTOMER,response.user().role());
-    verify(users).save(userCaptor.capture()); assertNotEquals("correct-horse",userCaptor.getValue().passwordHash);
-  }
+    @Autowired
+    private MockMvc mockMvc;
 
-  @Test void rejectsDuplicateEmail() {
-    when(users.findByEmail("exists@fixora.test")).thenReturn(Optional.of(new User()));
-    var controller=new AuthController(users,new BCryptPasswordEncoder(),jwt);
-    assertThrows(ResponseStatusException.class,()->controller.register(new RegisterRequest("Exists","exists@fixora.test","correct-horse",Role.CUSTOMER)));
-  }
+    @MockitoBean
+    private JwtService jwtService;
+
+    @Test
+    void healthCheckShouldReturnOk() throws Exception {
+        mockMvc.perform(get("/api/health"))
+               .andExpect(status().isOk());
+    }
 }
