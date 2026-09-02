@@ -1,5 +1,6 @@
 package com.fixora.security;
 
+import com.fixora.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -30,14 +31,18 @@ public class JwtService {
     public void init() {
         byte[] keyBytes = jwtSecret.getBytes(StandardCharsets.UTF_8);
         if (keyBytes.length < 32) {
-            log.error("JWT_SECRET must be at least 32 bytes (256 bits) long for HMAC-SHA256 safety!");
-            throw new IllegalArgumentException("JWT_SECRET environment variable is too short. Minimum length is 32 characters.");
+            log.error("JWT_SECRET must be at least 32 bytes long for HMAC-SHA256 safety!");
+            throw new IllegalArgumentException("JWT_SECRET environment variable is too short.");
         }
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
     public String generateToken(String username) {
         return issue(username, jwtExpirationInMs / 1000);
+    }
+
+    public String issue(User user, long expirationInSeconds) {
+        return issue(user != null ? user.getEmail() : "user@fixora.com", expirationInSeconds);
     }
 
     public String issue(String username, long expirationInSeconds) {
