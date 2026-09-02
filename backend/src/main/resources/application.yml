@@ -3,25 +3,26 @@
     name: fixora-api
 
   datasource:
-    url: jdbc:${DATABASE_URL}
+    url: ${DATABASE_URL}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
       ddl-auto: validate
     open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
   flyway:
     enabled: true
-    locations: classpath:db/migration
-    clean-disabled: false
-    clean-on-validation-error: true
-    repair-on-migrate: true
     baseline-on-migrate: true
+    validate-on-migrate: true
+    locations: classpath:db/migration
 
 server:
   port: ${PORT:8080}
 
 fixora:
-  jwt-secret: ${JWT_SECRET:development-secret-change-this-to-at-least-32-bytes}
+  jwt-secret: ${JWT_SECRET:01234567890123456789012345678901}
   cors-origins: ${CORS_ORIGINS:http://localhost:5173}
