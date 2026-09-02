@@ -1,4 +1,4 @@
-﻿package com.fixora.security;
+package com.fixora.security;
 
 import com.fixora.User;
 import io.jsonwebtoken.Claims;

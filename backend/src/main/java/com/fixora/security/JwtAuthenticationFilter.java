@@ -1,4 +1,4 @@
-﻿package com.fixora.security;
+package com.fixora.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

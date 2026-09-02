@@ -1,4 +1,4 @@
-﻿package com.fixora.config;
+package com.fixora.config;
 
 import com.fixora.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,7 +41,7 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/actuator/health", "/actuator/info").permitAll()
+                .requestMatchers("/actuator/health", "/actuator/info", "/api/health").permitAll()
                 .requestMatchers("/api/v1/auth/**", "/api/auth/**", "/public/**").permitAll()
                 .anyRequest().authenticated()
             )

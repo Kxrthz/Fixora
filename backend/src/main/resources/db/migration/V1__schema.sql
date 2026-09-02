@@ -1,4 +1,4 @@
-﻿-- Fixora PostgreSQL Schema Migration
+-- Fixora PostgreSQL Schema Migration
 
 CREATE TABLE IF NOT EXISTS users (
     id BIGSERIAL PRIMARY KEY,

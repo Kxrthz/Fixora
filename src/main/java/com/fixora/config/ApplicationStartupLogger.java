@@ -1,4 +1,4 @@
-﻿package com.fixora.config;
+package com.fixora.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
