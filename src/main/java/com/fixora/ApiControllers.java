@@ -17,22 +17,15 @@ public class ApiControllers {
         this.jwtService = jwtService;
     }
 
-    @GetMapping("/health")
-    public ResponseEntity<Map<String, String>> healthCheck() {
-        Map<String, String> response = new HashMap<>();
-        response.put("status", "UP");
-        response.put("service", "Fixora Backend API");
-        return ResponseEntity.ok(response);
-    }
-
     @PostMapping("/auth/login")
-    public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> credentials) {
-        String email = credentials.get("email");
-        String token = jwtService.generateToken(email != null ? email : "user@fixora.com");
+    public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> request) {
+        String username = request.get("username");
+        String role = request.getOrDefault("role", "USER");
 
-        Map<String, Object> response = new HashMap<>();
+        String token = jwtService.generateToken(username, role);
+
+        Map<String, String> response = new HashMap<>();
         response.put("token", token);
-        response.put("type", "Bearer");
         return ResponseEntity.ok(response);
     }
 }
