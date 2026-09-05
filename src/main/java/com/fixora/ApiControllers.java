@@ -24,8 +24,10 @@ public class ApiControllers {
     public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> credentials) {
         String username = credentials.get("username");
         String password = credentials.get("password");
+        String role = credentials.getOrDefault("role", "USER");
 
-        String token = jwtService.generateToken(username);
+        // Fixed: Passing both username and role to match JwtService.generateToken(String, String)
+        String token = jwtService.generateToken(username, role);
 
         Map<String, String> response = new HashMap<>();
         response.put("token", token);
